@@ -1,0 +1,23 @@
+name: Spike
+description: A time-boxed investigation to be able to decide.
+labels: ["type:spike"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What we need to find out to be able to decide.
+    validations:
+      required: true
+  - type: input
+    id: timebox
+    attributes:
+      label: Time box
+      description: Maximum effort (e.g. 2 hours).
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Result
+      description: Written in the issue when the spike ends. If it decides something important, it becomes an ADR.
