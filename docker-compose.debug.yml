@@ -1,0 +1,10 @@
+# Opt-in, for debugging only: publishes MongoDB and Redis on localhost so
+# MongoDB Compass and Redis Insight can connect.
+#   docker compose -f docker-compose.yml -f docker-compose.debug.yml up
+services:
+  mongo:
+    ports:
+      - "127.0.0.1:27017:27017"
+  redis:
+    ports:
+      - "127.0.0.1:6379:6379"

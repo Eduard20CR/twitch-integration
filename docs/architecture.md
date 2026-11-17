@@ -180,5 +180,6 @@ infra/              Empty until hosting is decided
 scripts/            Helper scripts, such as sending fake events with the Twitch CLI
 docs/               Non-functional requirements, architecture, data model and ADRs
 docker-compose.yml  Every piece, for running locally: Traefik, the Dashboard (web), two copies of each server, the reaper, Redis and MongoDB
+docker-compose.debug.yml  Optional, for debugging: publishes MongoDB and Redis on localhost
 .env.example        The names of the environment variables, with no values
 ```
