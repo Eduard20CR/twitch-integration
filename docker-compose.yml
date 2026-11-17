@@ -1,0 +1,24 @@
+services:
+  traefik:
+    image: traefik:v3.7.19
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  redis:
+    image: redis:8.10.3
+    # No persistence: everything in Redis is short-lived (sessions, presence, locks, duplicate keys).
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+
+  mongo:
+    image: mongo:8.0.38
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

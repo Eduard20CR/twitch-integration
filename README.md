@@ -34,13 +34,15 @@ All in docker-compose, behind one address: the Dashboard (React), the App Server
 
 ## How to run it locally
 
-1. Create a Twitch app in the [Twitch developer console](https://dev.twitch.tv/console), with `http://localhost:<load balancer port>/auth/callback` as its redirect URL.
+1. Create a Twitch app in the [Twitch developer console](https://dev.twitch.tv/console), with `http://localhost:8080/auth/callback` as its redirect URL.
 2. Copy `.env.example` to `.env` and fill in the Twitch client id, the client secret, a random webhook secret and a random token encryption key. `.env` is never committed.
-3. Start a tunnel that gives the Webhook Server a public HTTPS address: `ngrok http <load balancer port>` with the account's free dev domain, and put that address in `.env` as the webhook callback URL.
+3. Start a tunnel that gives the Webhook Server a public HTTPS address: `ngrok http 8080` with the account's free dev domain, and put that address in `.env` as the webhook callback URL.
 4. Run `docker compose up`.
 5. Open the Dashboard in the browser, sign in with Twitch and write in the Channel's chat.
 
-To test the Webhook Server without Twitch or the tunnel, send fake events with the [Twitch CLI](https://dev.twitch.tv/docs/cli/): `twitch event trigger channel.chat.message --forward-address http://localhost:<load balancer port>/eventsub --secret <webhook secret>`.
+To test the Webhook Server without Twitch or the tunnel, send fake events with the [Twitch CLI](https://dev.twitch.tv/docs/cli/): `twitch event trigger channel.chat.message --forward-address http://localhost:8080/eventsub --secret <webhook secret>`.
+
+To look inside MongoDB and Redis while debugging (with MongoDB Compass or Redis Insight), start the stack with the debug file: `docker compose -f docker-compose.yml -f docker-compose.debug.yml up`. It publishes MongoDB on `mongodb://localhost:27017` and Redis on `localhost:6379`, only on localhost. Without it, only port 8080 is published, and they are reached with `docker compose exec mongo mongosh` and `docker compose exec redis redis-cli`.
 
 Use Chrome or Firefox locally: the session cookie is `Secure`, and Safari may not accept it on `http://localhost` (not verified).
 
